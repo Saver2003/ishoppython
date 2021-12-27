@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+<!-- <form method="get" action="{% url 'index' %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+</form> -->
+    {% for product in products %}
+    {% if product.remainder > 0 %}
+        <div class="product-wrapper">
+            <h3>{{ product.title}}</h3>
+            {% for choise in choises %}
+                {% if choise.0 == product.category %}
+                    <p>{{choise.1}}</p>
+                {% endif %}
+            {% endfor %}
+            <p>{{ product.cost}}</p>
+            <a href="{% url 'product_view' product.pk %}">Подробнее...</a>
+            <a href="{% url 'product_update' product.pk %}">Изменить</a>
+            <a href="{% url 'product_delete' product.pk %}">Удалить</a>
+        </div>
+    {% endif %}
+    {% endfor %}
+{% endblock %}
